@@ -1,0 +1,11 @@
+node_modules/
+.pnpm-store/
+dist/
+.vercel/
+.sites-runtime/
+*.local
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+.qa/
