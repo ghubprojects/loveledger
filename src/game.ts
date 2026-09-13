@@ -5,6 +5,7 @@ export interface Round { id: string; scores: Pair<number>; pointValue: number; r
 export interface Session { id: string; title: string; createdAt: string; settings: Settings; rounds: Round[] }
 export interface GameState { version: 1; activeSessionId: string; sessions: Session[] }
 
+// Keep the original key so the LoveLedger rebrand preserves existing history.
 export const STORAGE_KEY = 'so-bai-doi:v1'
 export const MAX_SCORE = 100_000
 export const MAX_RATE = 1_000_000

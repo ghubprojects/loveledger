@@ -121,7 +121,18 @@ export default function App() {
   }
 
   return <>
-    <header className="site-header"><div className="header-content"><a href="#" className="brand" aria-label="Sổ Bài Đôi — trang chính"><span className="brand-icon"><Heart size={22} fill="currentColor" strokeWidth={0} /></span><span>Sổ Bài Đôi<span className="brand-dot">.</span></span></a><div className="header-right"><span className="local-badge"><ShieldCheck size={16} />Lưu trên thiết bị</span><button className="button header-history" aria-label="Lịch sử buổi chơi" onClick={() => setModal('history')}><History size={18} /><span>Lịch sử buổi chơi</span></button></div></div></header>
+    <header className="site-header">
+      <div className="header-content">
+        <a href="#" className="brand" aria-label="LoveLedger — trang chính">
+          <span className="brand-icon"><Heart size={22} fill="currentColor" strokeWidth={0} /></span>
+          <span className="brand-copy">
+            <span className="brand-name">Love<span>Ledger</span></span>
+            <span className="brand-slogan">Keep score. Settle later.</span>
+          </span>
+        </a>
+        <div className="header-right"><span className="local-badge"><ShieldCheck size={16} />Lưu trên thiết bị</span><button className="button header-history" aria-label="Lịch sử buổi chơi" onClick={() => setModal('history')}><History size={18} /><span>Lịch sử buổi chơi</span></button></div>
+      </div>
+    </header>
     <main className="workspace">
       <div className="page-heading"><div><div className="eyebrow"><span className="tiny-suits">♣ <span>♥</span></span> GÓC CHƠI BÀI CỦA HAI NGƯỜI</div><h1>Bàn của hai mình</h1><div className="session-caption"><span>{session.title}</span><span className="separator">/</span><span>{dateLabel(session.createdAt)}</span></div></div><button className="button secondary new-session" onClick={() => setModal('new')}><Plus size={18} />Buổi chơi mới</button></div>
       {error && <div className="storage-error" role="alert"><p>{error}</p><button className="icon-button" aria-label="Đóng thông báo" onClick={clearError}><X size={18} /></button></div>}
@@ -138,7 +149,7 @@ export default function App() {
           {rounds.length === 0 ? <div className="empty-rounds"><span className="empty-icon"><Club size={30} strokeWidth={1.4} /></span><h3>Chia bài rồi, ghi điểm thôi!</h3><p>Ván đầu tiên sẽ xuất hiện ở đây.<br />Mỗi ván đều có thể sửa hoặc xóa.</p></div> : <><div className="table-scroll"><table><thead><tr><th>Ván</th><th>{session.settings.players[0]}</th><th>{session.settings.players[1]}</th><th>Kết quả</th><th><span className="sr-only">Thao tác</span></th></tr></thead><tbody>{visibleRounds.map(round => { const delta = roundBalance(round); return <tr key={round.id}><td><span className="round-number">{String(round.index + 1).padStart(2, '0')}</span><small>{timeLabel(round.createdAt)}</small></td><td className={delta > 0 ? 'winning-score' : ''}>{number(round.scores[0])}</td><td className={delta < 0 ? 'winning-score' : ''}>{number(round.scores[1])}</td><td><span className={`result-pill ${delta === 0 ? 'draw' : delta > 0 ? 'club' : 'heart'}`}>{delta === 0 ? 'Hòa' : <><span>{delta > 0 ? '♣' : '♥'}</span><span className="result-name">{session.settings.players[delta > 0 ? 0 : 1]}</span> +{money(delta)}</>}</span><small>{money(round.pointValue)}/đ · {round.rule === 'higher' ? 'Cao thắng' : 'Thấp thắng'}</small></td><td><div className="row-actions"><button className="icon-button" aria-label={`Sửa ván ${round.index + 1}`} title="Sửa ván" onClick={() => { setEditingId(round.id); document.getElementById('ghi-diem')?.scrollIntoView({ behavior: 'smooth', block: 'center' }) }}><Pencil size={15} /></button><button className="icon-button delete-button" aria-label={`Xóa ván ${round.index + 1}`} title="Xóa ván" onClick={() => setDeleting(round)}><Trash2 size={15} /></button></div></td></tr> })}</tbody></table></div>{rounds.length > 8 && <button className="show-more" onClick={() => setShowAll(!showAll)}>{showAll ? 'Thu gọn' : `Xem tất cả ${rounds.length} ván`}<ChevronDown size={16} className={showAll ? 'rotated' : ''} /></button>}<div className="history-footer"><CheckCheck size={15} />Đã lưu {session.rounds.length} ván<span>{stats.draws} ván hòa</span></div></>}
         </section>
       </div><aside className="entry-column"><RoundForm key={`${session.id}-${editing?.id ?? 'new'}`} session={session} editing={editing} onSave={saveRound} onCancel={() => setEditingId(null)} /><div className="how-it-works"><span className="small-icon"><Equal size={18} /></span><div><h3>Tính tiền thật đơn giản</h3><p>Chênh lệch điểm × tiền mỗi điểm.<br />Ví dụ chênh 5 điểm = <strong>{money(5 * session.settings.pointValue)}</strong>.</p><p className="local-note">Dữ liệu chỉ lưu trên trình duyệt này, chưa đồng bộ giữa các thiết bị.</p></div></div></aside></div>
-      <footer className="site-footer"><span>Sổ Bài Đôi <Heart size={12} /> Hai người, một cuốn sổ.</span><span>Chơi vui, ghi điểm gọn.</span></footer>
+      <footer className="site-footer"><span>LoveLedger <Heart size={12} /> Keep score. Settle later.</span><span>Hai người, một cuốn sổ.</span></footer>
     </main>
     {toast && <div className="toast" role="status"><Check size={17} />{toast}</div>}
     {(modal === 'settings' || modal === 'new') && <Modal title={modal === 'new' ? 'Bắt đầu buổi chơi mới' : 'Cài đặt buổi chơi'} onClose={() => setModal(null)}><SettingsForm session={session} isNew={modal === 'new'} onSave={saveSettings} onClose={() => setModal(null)} />{error && <p className="field-error" role="alert">{error}</p>}</Modal>}

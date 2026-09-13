@@ -1,6 +1,10 @@
-# Sổ Bài Đôi
+# LoveLedger
+
+**Keep score. Settle later.**
 
 Web ghi điểm và tính tiền chơi bài dành cho hai người. React + TypeScript + Vite, lưu dữ liệu bằng localStorage, triển khai dạng web tĩnh trên Vercel.
+
+Giao diện dùng tông hồng rose và đỏ berry, với biểu tượng trái tim ở logo và favicon.
 
 ## Chạy dự án
 
@@ -42,6 +46,17 @@ Ví dụ A được 10 điểm, B được 4 điểm, 1.000 đồng/điểm, đi
 
 Mỗi ván lưu riêng mức tiền và luật. Đổi cài đặt chỉ áp dụng cho các ván ghi sau; sửa một ván vẫn dùng mức tiền và luật gốc. Mức tiền nguyên từ 1 đến 1.000.000 đồng, điểm mỗi người từ −100.000 đến 100.000. Mỗi buổi tối đa 10.000 ván; tối đa 200 buổi.
 
+## Push lên remote
+
+Tạo repository **rỗng** tên `loveledger` trên GitHub (không tạo sẵn README, `.gitignore` hoặc license). Trong thư mục dự án, chạy các lệnh dưới đây và thay `YOUR_USERNAME` bằng tên tài khoản GitHub của bạn:
+
+```bash
+git remote add origin https://github.com/YOUR_USERNAME/loveledger.git
+git push -u origin main
+```
+
+Lệnh push gửi cả hai commit trên nhánh `main`. Nếu dùng GitLab hoặc nhà cung cấp khác, thay bằng URL Git của repository đó. Với các commit tiếp theo, chỉ cần `git push`. Có thể kiểm tra remote đã gắn bằng `git remote -v`.
+
 ## Deploy Vercel
 
 Đã có `vercel.json` và lockfile, không cần database, API key hay biến môi trường.
@@ -58,7 +73,7 @@ Tham khảo [tài liệu Vite trên Vercel](https://vercel.com/docs/frameworks/f
 
 ## Dữ liệu
 
-- Key localStorage: `so-bai-doi:v1`, schema version 1. Tất cả tiền được tính từ các ván, không lưu tổng trùng lặp.
+- Key localStorage giữ nguyên là `so-bai-doi:v1`, schema version 1, để lịch sử từ bản Sổ Bài Đôi tiếp tục dùng được sau khi đổi tên thành LoveLedger. Tất cả tiền được tính từ các ván, không lưu tổng trùng lặp.
 - Dữ liệu chỉ thuộc trình duyệt và địa chỉ web hiện tại. **Hai điện thoại không tự đồng bộ**, dù cùng mở một URL; dùng một máy để ghi chung.
 - Localhost, URL preview và tên miền production có vùng lưu trữ riêng. Đổi tên miền hoặc xóa dữ liệu trình duyệt sẽ không mang theo lịch sử. Chế độ ẩn danh có thể xóa dữ liệu khi đóng phiên.
 - Không cần backend hoặc đăng nhập. Tải lại trang vẫn giữ lịch sử sau khi lưu thành công.
