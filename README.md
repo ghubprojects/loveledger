@@ -4,7 +4,7 @@
 
 Web ghi điểm và tính tiền chơi bài dành cho hai người. React + TypeScript + Vite, lưu dữ liệu bằng localStorage, triển khai dạng web tĩnh trên Vercel.
 
-Giao diện dùng tông hồng rose và đỏ berry, với biểu tượng trái tim ở logo và favicon.
+Giao diện dùng hồng dâu tươi, nền bảng điểm chuyển nhẹ từ hồng sang đào sáng, với biểu tượng trái tim ở logo và favicon.
 
 ## Chạy dự án
 
